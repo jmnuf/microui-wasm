@@ -1,4 +1,5 @@
 import { createAllocator } from './allocator';
+import wasmUrl from '/out.wasm?url';
 import { yp } from './grt';
 
 function createEnv<T extends Record<string, any>>(base: T) {
@@ -294,7 +295,7 @@ export function* get_module() {
     },
   });
 
-  const wasm = yield* yp(WebAssembly.instantiateStreaming(fetch('/out.wasm'), { env }));
+  const wasm = yield* yp(WebAssembly.instantiateStreaming(fetch(wasmUrl), { env }));
 
   const mod = {
     base: wasm.instance,
